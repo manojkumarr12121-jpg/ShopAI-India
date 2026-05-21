@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Wishlist – ShopAI India</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+<div class="announce-bar"><div class="announce-inner"><span><i class="fas fa-heart"></i> Your Saved Items</span><span class="sep">|</span><span><i class="fas fa-robot"></i> AI-Curated Picks</span></div></div>
+<header class="header">
+  <div class="header-top"><div class="container"><div class="header-row">
+    <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-robot"></i></div><div class="logo-words"><span class="logo-main">ShopAI</span><span class="logo-sub">INDIA</span></div></a>
+    <div style="flex:1"></div>
+    <div class="header-actions">
+      <a href="index.html" class="haction"><i class="fas fa-home hicon"></i><div class="haction-text"><span class="haction-main">Home</span></div></a>
+      <a href="products.html" class="haction"><i class="fas fa-search hicon"></i><div class="haction-text"><span class="haction-main">Shop</span></div></a>
+      <a href="cart.html" class="haction cart-btn"><div style="position:relative"><i class="fas fa-shopping-cart hicon"></i><span class="hbadge" id="cartCount">0</span></div><div class="haction-text"><span class="haction-main">Cart</span></div></a>
+    </div>
+  </div></div></div>
+</header>
+
+<main style="padding:24px 0;background:#f5f5f5;min-height:80vh">
+  <div class="container">
+    <h1 style="font-size:24px;font-weight:800;margin-bottom:20px;color:var(--secondary)"><i class="fas fa-heart" style="color:var(--primary)"></i> My Wishlist (<span id="wlCount">0</span> items)</h1>
+    <div class="prod-grid" id="wishlistGrid"></div>
+  </div>
+</main>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+<script src="js/data.js"></script><script src="js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const wl=JSON.parse(localStorage.getItem('shopai_wishlist')||'[]');
+  document.getElementById('wlCount').textContent=wl.length;
+  const items=PRODUCTS.filter(p=>wl.includes(p.id));
+  const grid=document.getElementById('wishlistGrid');
+  if(!items.length){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:#999"><i class="fas fa-heart" style="font-size:56px;color:#ddd;display:block;margin-bottom:16px"></i><h2 style="color:#555">Your Wishlist is Empty</h2><p style="margin-bottom:20px">Save items you love for later!</p><a href="products.html" style="background:var(--primary);color:#fff;padding:12px 24px;border-radius:25px;font-weight:700;text-decoration:none">Start Shopping</a></div>';
+  } else {
+    renderGrid(items,'wishlistGrid');
+  }
+  updateCartUI(); updateWishlistUI();
+});
+</script>
+</body>
+</html>

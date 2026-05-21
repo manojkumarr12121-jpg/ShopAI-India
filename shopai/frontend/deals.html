@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Today's Deals – ShopAI India</title>
+  <link rel="stylesheet" href="css/style.css"/><link rel="stylesheet" href="css/pages.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+<div class="announce-bar"><div class="announce-inner"><span><i class="fas fa-fire"></i> Today's Deals – Up to 80% OFF</span><span class="sep">|</span><span><i class="fas fa-robot"></i> AI-Curated Just For You</span></div></div>
+<header class="header">
+  <div class="header-top"><div class="container"><div class="header-row">
+    <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-robot"></i></div><div class="logo-words"><span class="logo-main">ShopAI</span><span class="logo-sub">INDIA</span></div></a>
+    <div class="search-bar"><input type="text" id="searchInput" placeholder="Search products…" autocomplete="off"/><button class="search-btn" onclick="doSearch()"><i class="fas fa-search"></i> Search</button><div class="search-suggest" id="searchSuggest"></div></div>
+    <div class="header-actions">
+      <a href="index.html" class="haction"><i class="fas fa-home hicon"></i><div class="haction-text"><span class="haction-main">Home</span></div></a>
+      <div class="haction cart-btn" onclick="openCartDrawer()"><div style="position:relative"><i class="fas fa-shopping-cart hicon"></i><span class="hbadge" id="cartCount">0</span></div><div class="haction-text"><span class="haction-main">Cart</span></div></div>
+    </div>
+  </div></div></div>
+  <nav class="nav"><div class="container"><ul class="nav-list">
+    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+    <li class="nav-item"><a href="products.html" class="nav-link">All Products</a></li>
+    <li class="nav-item"><a href="deals.html" class="nav-link deal-lnk active"><i class="fas fa-fire"></i> Today's Deals</a></li>
+    <li class="nav-item"><a href="ai-features.html" class="nav-link ai-lnk"><i class="fas fa-robot"></i> AI Features</a></li>
+  </ul></div></nav>
+</header>
+
+<section style="background:linear-gradient(135deg,#e02020,#FF6A00);padding:32px 0;text-align:center;color:white">
+  <div class="container">
+    <div style="font-size:13px;font-weight:700;letter-spacing:2px;opacity:.8;margin-bottom:8px">LIMITED TIME OFFERS</div>
+    <h1 style="font-size:40px;font-weight:900;font-family:'Rajdhani',sans-serif;margin-bottom:8px">Today's Best Deals</h1>
+    <p style="opacity:.85;margin-bottom:20px">AI-curated deals across Electronics, Fashion, Beauty & more</p>
+    <div class="countdown" style="justify-content:center">
+      <div class="cu"><span id="ch2">08</span><label>Hrs</label></div>
+      <div class="csep">:</div>
+      <div class="cu"><span id="cm2">45</span><label>Min</label></div>
+      <div class="csep">:</div>
+      <div class="cu"><span id="cs2">22</span><label>Sec</label></div>
+    </div>
+  </div>
+</section>
+
+<main style="padding:28px 0;background:#f5f5f5">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-title">All Deals</h2>
+      <select onchange="sortDeals(this.value)" style="padding:7px 12px;border:1px solid #ddd;border-radius:6px;font-family:inherit">
+        <option value="discount">Best Discount</option>
+        <option value="price-low">Price Low-High</option>
+        <option value="rating">Highest Rated</option>
+      </select>
+    </div>
+    <div class="prod-grid" id="dealsPageGrid"></div>
+  </div>
+</main>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartDrawer()"></div>
+<div class="cart-drawer" id="cartDrawer"><div class="cd-head"><h3><i class="fas fa-shopping-cart"></i> Cart (<span id="cdCount">0</span>)</h3><button onclick="closeCartDrawer()"><i class="fas fa-times"></i></button></div><div class="cd-items" id="cdItems"></div><div class="cd-footer"><div class="cd-total">Total: <strong id="cdTotal">₹0</strong></div><a href="cart.html" class="btn-checkout">Checkout</a></div></div>
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+<script src="js/data.js"></script><script src="js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  let deals=PRODUCTS.filter(p=>p.discount>=10).sort((a,b)=>b.discount-a.discount);
+  renderGrid(deals,'dealsPageGrid'); updateCartUI();
+  startCountdown('ch2','cm2','cs2',8*3600+45*60+22);
+});
+function sortDeals(v){
+  let d=[...PRODUCTS.filter(p=>p.discount>=10)];
+  if(v==='price-low') d.sort((a,b)=>a.price-b.price);
+  else if(v==='rating') d.sort((a,b)=>b.rating-a.rating);
+  else d.sort((a,b)=>b.discount-a.discount);
+  renderGrid(d,'dealsPageGrid');
+}
+function startCountdown(hId,mId,sId,secs){
+  setInterval(()=>{
+    secs=Math.max(0,secs-1);
+    const h=Math.floor(secs/3600),m=Math.floor((secs%3600)/60),s=secs%60;
+    document.getElementById(hId).textContent=String(h).padStart(2,'0');
+    document.getElementById(mId).textContent=String(m).padStart(2,'0');
+    document.getElementById(sId).textContent=String(s).padStart(2,'0');
+  },1000);
+}
+</script>
+</body>
+</html>

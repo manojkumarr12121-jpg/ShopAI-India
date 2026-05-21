@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Register – ShopAI India</title>
+  <link rel="stylesheet" href="css/style.css"/><link rel="stylesheet" href="css/pages.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body style="background:linear-gradient(135deg,#f5f5f5,#fff3ec)">
+<div class="announce-bar"><div class="announce-inner"><span><i class="fas fa-robot"></i> ShopAI India</span><span class="sep">|</span><span><i class="fas fa-shield-alt"></i> Secure 256-bit SSL Login</span></div></div>
+<header class="header"><div class="header-top"><div class="container"><div class="header-row" style="justify-content:center">
+  <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-robot"></i></div><div class="logo-words"><span class="logo-main">ShopAI</span><span class="logo-sub">INDIA</span></div></a>
+</div></div></div></header>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo"><i class="fas fa-robot" style="font-size:40px;color:var(--primary)"></i><h2>Welcome to ShopAI India</h2><p>AI-powered personalised shopping experience</p></div>
+    <div class="auth-tabs"><div class="auth-tab active" id="loginTab" onclick="switchTab('login')">Login</div><div class="auth-tab" id="regTab" onclick="switchTab('reg')">Register</div></div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="loginEmail" placeholder="your@email.com"/></div>
+      <div class="form-group"><label><i class="fas fa-lock"></i> Password</label><input type="password" id="loginPass" placeholder="Enter password"/></div>
+      <div style="text-align:right;margin-bottom:12px"><a href="#" style="font-size:13px;color:var(--primary)">Forgot Password?</a></div>
+      <button class="btn-auth" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Login to ShopAI</button>
+      <div class="auth-or">— or login with —</div>
+      <div class="social-btns">
+        <button class="btn-social" onclick="showToast('Google login coming soon!')"><i class="fab fa-google" style="color:#ea4335"></i> Google</button>
+        <button class="btn-social" onclick="showToast('OTP login coming soon!')"><i class="fas fa-mobile-alt" style="color:var(--primary)"></i> Phone OTP</button>
+      </div>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="regForm" style="display:none">
+      <div class="form-group"><label><i class="fas fa-user"></i> Full Name</label><input type="text" id="regName" placeholder="Manoj kumar"/></div>
+      <div class="form-group"><label><i class="fas fa-envelope"></i> Email Address</label><input type="email" id="regEmail" placeholder="Manoj@example.com"/></div>
+      <div class="form-group"><label><i class="fas fa-phone"></i> Mobile Number</label><input type="tel" id="regPhone" placeholder="+91 98765 43210"/></div>
+      <div class="form-group"><label><i class="fas fa-lock"></i> Create Password</label><input type="password" id="regPass" placeholder="Min 8 characters"/></div>
+      <div class="form-group"><label><i class="fas fa-city"></i> City</label><input type="text" id="regCity" placeholder="salem,Bengaluru…"/></div>
+      <div style="font-size:12px;color:var(--gray-500);margin-bottom:12px">By registering you agree to our <a href="#" style="color:var(--primary)">Terms</a> & <a href="#" style="color:var(--primary)">Privacy Policy</a></div>
+      <button class="btn-auth" onclick="doRegister()"><i class="fas fa-user-plus"></i> Create Account</button>
+    </div>
+
+    <p style="text-align:center;margin-top:20px;font-size:13px"><a href="index.html" style="color:var(--primary)"><i class="fas fa-arrow-left"></i> Back to Shopping</a></p>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+<script>
+function switchTab(t){
+  document.getElementById('loginTab').classList.toggle('active',t==='login');
+  document.getElementById('regTab').classList.toggle('active',t==='reg');
+  document.getElementById('loginForm').style.display=t==='login'?'block':'none';
+  document.getElementById('regForm').style.display=t==='reg'?'block':'none';
+}
+async function doLogin(){
+  const email=document.getElementById('loginEmail').value;
+  const pass=document.getElementById('loginPass').value;
+  if(!email||!pass){showToast('Please fill in all fields');return;}
+  // Demo login (no backend required for demo)
+  if(email&&pass.length>=4){
+    localStorage.setItem('shopai_user',JSON.stringify({email,name:email.split('@')[0],loggedIn:true}));
+    showToast('✅ Login successful! Redirecting…');
+    setTimeout(()=>location.href='index.html',1200);
+  } else { showToast('❌ Invalid credentials'); }
+  // Real call: POST http://localhost:8080/api/auth/login {email,password}
+}
+async function doRegister(){
+  const name=document.getElementById('regName').value;
+  const email=document.getElementById('regEmail').value;
+  const phone=document.getElementById('regPhone').value;
+  const pass=document.getElementById('regPass').value;
+  if(!name||!email||!phone||!pass){showToast('Please fill all required fields');return;}
+  if(pass.length<8){showToast('Password must be at least 8 characters');return;}
+  localStorage.setItem('shopai_user',JSON.stringify({name,email,phone,loggedIn:true}));
+  showToast('🎉 Account created! Welcome to ShopAI India!');
+  setTimeout(()=>location.href='index.html',1500);
+  // Real call: POST http://localhost:8080/api/auth/register {fullName,email,password,phone,city}
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>

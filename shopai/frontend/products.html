@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products – ShopAI India</title>
+  <link rel="stylesheet" href="css/style.css"/><link rel="stylesheet" href="css/pages.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+<div class="announce-bar"><div class="announce-inner"><span><i class="fas fa-robot"></i> AI Active</span><span class="sep">|</span><span><i class="fas fa-truck"></i> Free Delivery ₹499+</span></div></div>
+<header class="header">
+  <div class="header-top"><div class="container"><div class="header-row">
+    <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-robot"></i></div><div class="logo-words"><span class="logo-main">ShopAI</span><span class="logo-sub">INDIA</span></div></a>
+    <div class="search-bar"><input type="text" id="searchInput" placeholder="Search products…" autocomplete="off"/><button class="search-btn" onclick="doSearch()"><i class="fas fa-search"></i> Search</button><div class="search-suggest" id="searchSuggest"></div></div>
+    <div class="header-actions">
+      <a href="index.html" class="haction"><i class="fas fa-home hicon"></i><div class="haction-text"><span class="haction-main">Home</span></div></a>
+      <a href="wishlist.html" class="haction"><div style="position:relative"><i class="fas fa-heart hicon"></i><span class="hbadge" id="wishCount">0</span></div></a>
+      <div class="haction cart-btn" onclick="openCartDrawer()"><div style="position:relative"><i class="fas fa-shopping-cart hicon"></i><span class="hbadge" id="cartCount">0</span></div><div class="haction-text"><span class="haction-main">Cart</span></div></div>
+    </div>
+  </div></div></div>
+  <nav class="nav"><div class="container"><ul class="nav-list">
+    <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+    <li class="nav-item"><a href="products.html?cat=electronics" class="nav-link">Electronics</a></li>
+    <li class="nav-item"><a href="products.html?cat=fashion" class="nav-link">Fashion</a></li>
+    <li class="nav-item"><a href="products.html?cat=beauty" class="nav-link">Beauty</a></li>
+    <li class="nav-item"><a href="deals.html" class="nav-link deal-lnk"><i class="fas fa-fire"></i> Deals</a></li>
+    <li class="nav-item"><a href="ai-features.html" class="nav-link ai-lnk"><i class="fas fa-robot"></i> AI Features</a></li>
+  </ul></div></nav>
+</header>
+
+<main style="padding:20px 0;background:#f5f5f5;min-height:80vh">
+  <div class="container">
+    <div class="page-layout">
+      <aside class="filter-sidebar">
+        <div class="filter-box">
+          <h3><i class="fas fa-filter"></i> Filters</h3>
+          <div class="filter-sec"><h4>Category</h4>
+            <label><input type="checkbox" value="electronics"/> Electronics</label>
+            <label><input type="checkbox" value="fashion"/> Fashion</label>
+            <label><input type="checkbox" value="home-living"/> Home & Living</label>
+            <label><input type="checkbox" value="beauty"/> Beauty & Care</label>
+            <label><input type="checkbox" value="sports"/> Sports</label>
+            <label><input type="checkbox" value="books"/> Books</label>
+          </div>
+          <div class="filter-sec"><h4>Price Range</h4>
+            <input type="range" min="0" max="200000" step="500" value="200000" id="priceRange" oninput="document.getElementById('priceVal').textContent='₹'+parseInt(this.value).toLocaleString('en-IN')"/>
+            <span id="priceVal">₹2,00,000</span>
+          </div>
+          <div class="filter-sec"><h4>Customer Rating</h4>
+            <label><input type="radio" name="rating" value="4"/> 4★ & above</label>
+            <label><input type="radio" name="rating" value="3"/> 3★ & above</label>
+            <label><input type="radio" name="rating" value="0" checked/> All Ratings</label>
+          </div>
+          <div class="filter-sec"><h4>Discount</h4>
+            <label><input type="checkbox" value="10"/> 10% or more</label>
+            <label><input type="checkbox" value="20"/> 20% or more</label>
+            <label><input type="checkbox" value="30"/> 30% or more</label>
+          </div>
+          <div class="filter-sec"><h4>Brand</h4>
+            <label><input type="checkbox" value="Samsung"/> Samsung</label>
+            <label><input type="checkbox" value="Apple"/> Apple</label>
+            <label><input type="checkbox" value="boAt"/> boAt</label>
+            <label><input type="checkbox" value="OnePlus"/> OnePlus</label>
+            <label><input type="checkbox" value="Mamaearth"/> Mamaearth</label>
+          </div>
+          <button class="btn-apply-filter" onclick="showToast('Filters applied!')">Apply Filters</button>
+        </div>
+        <div class="ai-sidebar-box">
+          <div class="ai-sb-head"><i class="fas fa-robot"></i> AI Insights</div>
+          <p>Based on your browsing, you prefer <strong>electronics</strong> and <strong>beauty</strong> products.</p>
+          <button onclick="showToast('Showing AI picks!')">Show AI Picks</button>
+        </div>
+      </aside>
+      <div class="products-main">
+        <div class="products-toolbar">
+          <h2 id="pageTitle">All Products</h2>
+          <div class="toolbar-right">
+            <select id="sortSel" onchange="sortProducts(this.value)">
+              <option value="relevant">Most Relevant</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+              <option value="discount">Best Discount</option>
+            </select>
+            <button class="view-toggle" onclick="toggleView()" title="Toggle View"><i class="fas fa-th" id="viewIcon"></i></button>
+          </div>
+        </div>
+        <div class="ai-reco-bar"><i class="fas fa-magic"></i><span>AI found <strong id="aiMatchCount">0</strong> products matching your preferences</span><button onclick="showToast('Showing AI picks!')">AI Picks</button></div>
+        <div class="prod-grid" id="productGrid"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="chatbot" id="chatbot">
+  <div class="cb-head"><div class="cb-avatar"><i class="fas fa-robot"></i></div><div class="cb-title"><h4>ShopAI Assistant</h4><span class="cb-online"></span><span>Online</span></div><div style="display:flex;gap:6px"><button class="cb-close" onclick="clearChat()" title="Clear" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);font-size:14px"><i class="fas fa-trash-alt"></i></button><button class="cb-close" onclick="toggleChatbot()"><i class="fas fa-times"></i></button></div></div>
+  <div class="cb-msgs" id="cbMsgs"></div></div></div>
+  <div class="cb-input"><input type="text" id="cbInput" placeholder="Ask me anything…" onkeypress="cbKeyPress(event)"/><button onclick="sendChat()"><i class="fas fa-paper-plane"></i></button></div>
+</div>
+<button class="cb-trigger" onclick="toggleChatbot()"><i class="fas fa-robot"></i><span class="cb-badge">AI</span></button>
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartDrawer()"></div>
+<div class="cart-drawer" id="cartDrawer"><div class="cd-head"><h3><i class="fas fa-shopping-cart"></i> Cart (<span id="cdCount">0</span>)</h3><button onclick="closeCartDrawer()"><i class="fas fa-times"></i></button></div><div class="cd-items" id="cdItems"><div class="cd-empty"><i class="fas fa-shopping-cart"></i><p>Empty</p></div></div><div class="cd-footer"><div class="cd-total">Total: <strong id="cdTotal">₹0</strong></div><a href="cart.html" class="btn-checkout">Checkout</a></div></div>
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<script src="js/data.js"></script><script src="js/app.js"></script><script src="js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const p=new URLSearchParams(location.search);
+  const search=p.get('search'), cat=p.get('cat');
+  let products=[...PRODUCTS];
+  if(search){
+    const q=search.toLowerCase();
+    products=products.filter(p=>p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||p.category.includes(q));
+    document.getElementById('pageTitle').textContent=`Results for "${search}" (${products.length})`;
+  } else if(cat){
+    products=products.filter(p=>p.category===cat);
+    document.getElementById('pageTitle').textContent=cat.replace(/-/g,' ').replace(/\b\w/g,l=>l.toUpperCase())+` (${products.length})`;
+  } else {
+    document.getElementById('pageTitle').textContent=`All Products (${products.length})`;
+  }
+  document.getElementById('aiMatchCount').textContent=products.length;
+  renderGrid(products,'productGrid');
+  updateCartUI(); updateWishlistUI();
+});
+function sortProducts(v){
+  let p=[...PRODUCTS];
+  if(v==='price-low') p.sort((a,b)=>a.price-b.price);
+  else if(v==='price-high') p.sort((a,b)=>b.price-a.price);
+  else if(v==='rating') p.sort((a,b)=>b.rating-a.rating);
+  else if(v==='discount') p.sort((a,b)=>b.discount-a.discount);
+  renderGrid(p,'productGrid');
+}
+function toggleView(){
+  const g=document.getElementById('productGrid'),i=document.getElementById('viewIcon');
+  if(g.classList.toggle('list-view')) i.className='fas fa-th'; else i.className='fas fa-list';
+}
+</script>
+</body>
+</html>

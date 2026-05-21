@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopAI India – AI-Powered E-Commerce Personalization</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="announce-bar">
+  <div class="announce-inner">
+    <span><i class="fas fa-robot"></i> AI Personalization Active</span>
+    <span class="sep">|</span><span><i class="fas fa-truck"></i> Free Delivery ₹499+</span>
+    <span class="sep">|</span><span><i class="fas fa-shield-alt"></i> 100% Secure Payments</span>
+    <span class="sep">|</span><span><i class="fas fa-undo"></i> 30-Day Returns</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="mainHeader">
+  <div class="header-top">
+    <div class="container">
+      <div class="header-row">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-robot"></i></div>
+          <div class="logo-words"><span class="logo-main">ShopAI</span><span class="logo-sub">INDIA</span></div>
+        </a>
+        <div class="search-bar">
+          <select id="searchCat" class="search-cat-sel">
+            <option value="">All</option>
+            <option value="electronics">Electronics</option>
+            <option value="fashion">Fashion</option>
+            <option value="home">Home</option>
+            <option value="beauty">Beauty</option>
+            <option value="sports">Sports</option>
+            <option value="books">Books</option>
+          </select>
+          <input type="text" id="searchInput" placeholder="Search products, brands and more…" autocomplete="off"/>
+          <button class="search-btn" onclick="doSearch()"><i class="fas fa-search"></i> Search</button>
+          <div class="search-suggest" id="searchSuggest"></div>
+        </div>
+        <div class="header-actions">
+          <div class="haction" id="userBtn" onclick="toggleUserMenu()">
+            <i class="fas fa-user hicon"></i>
+            <div class="haction-text"><span class="haction-label">Hello</span><span class="haction-main">Account <i class="fas fa-chevron-down fa-xs"></i></span></div>
+            <div class="hdropdown" id="userDropdown">
+              <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+              <a href="#"><i class="fas fa-user-circle"></i> My Profile</a>
+              <a href="#"><i class="fas fa-box"></i> My Orders</a>
+              <a href="wishlist.html"><i class="fas fa-heart"></i> Wishlist</a>
+              <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+          <a href="wishlist.html" class="haction">
+            <div style="position:relative"><i class="fas fa-heart hicon"></i><span class="hbadge" id="wishCount">0</span></div>
+            <div class="haction-text"><span class="haction-main">Wishlist</span></div>
+          </a>
+          <div class="haction cart-btn" onclick="openCartDrawer()">
+            <div style="position:relative"><i class="fas fa-shopping-cart hicon"></i><span class="hbadge" id="cartCount">0</span></div>
+            <div class="haction-text"><span class="haction-label">Your</span><span class="haction-main">Cart</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="container">
+      <ul class="nav-list">
+        <li class="nav-item has-mega">
+          <a class="nav-link"><i class="fas fa-bars"></i> All Categories</a>
+          <div class="mega-menu">
+            <div class="mega-col"><h4>Electronics</h4><a href="products.html?cat=mobiles">Mobiles</a><a href="products.html?cat=laptops">Laptops</a><a href="products.html?cat=audio">Audio</a><a href="products.html?cat=tablets">Tablets</a></div>
+            <div class="mega-col"><h4>Fashion</h4><a href="products.html?cat=mens">Men's Wear</a><a href="products.html?cat=womens">Women's Wear</a><a href="products.html?cat=footwear">Footwear</a><a href="products.html?cat=accessories">Accessories</a></div>
+            <div class="mega-col"><h4>Home & Living</h4><a href="products.html?cat=furniture">Furniture</a><a href="products.html?cat=kitchen">Kitchen</a><a href="products.html?cat=decor">Decor</a><a href="products.html?cat=appliances">Appliances</a></div>
+            <div class="mega-col"><h4>More</h4><a href="products.html?cat=beauty">Beauty</a><a href="products.html?cat=sports">Sports</a><a href="products.html?cat=books">Books</a><a href="products.html?cat=groceries">Groceries</a></div>
+          </div>
+        </li>
+        <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+        <li class="nav-item"><a href="products.html?cat=electronics" class="nav-link"><i class="fas fa-mobile-alt"></i> Electronics</a></li>
+        <li class="nav-item"><a href="products.html?cat=fashion" class="nav-link"><i class="fas fa-tshirt"></i> Fashion</a></li>
+        <li class="nav-item"><a href="products.html?cat=home" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        <li class="nav-item"><a href="products.html?cat=beauty" class="nav-link"><i class="fas fa-spa"></i> Beauty</a></li>
+        <li class="nav-item"><a href="deals.html" class="nav-link deal-lnk"><i class="fas fa-fire"></i> Today's Deals</a></li>
+        <li class="nav-item"><a href="ai-features.html" class="nav-link ai-lnk"><i class="fas fa-robot"></i> AI Features</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-sidebar">
+      <a href="products.html?cat=electronics" class="sidebar-link"><i class="fas fa-mobile-alt"></i> Electronics</a>
+      <a href="products.html?cat=fashion" class="sidebar-link"><i class="fas fa-tshirt"></i> Fashion</a>
+      <a href="products.html?cat=home" class="sidebar-link"><i class="fas fa-home"></i> Home & Living</a>
+      <a href="products.html?cat=beauty" class="sidebar-link"><i class="fas fa-spa"></i> Beauty & Care</a>
+      <a href="products.html?cat=sports" class="sidebar-link"><i class="fas fa-dumbbell"></i> Sports</a>
+      <a href="products.html?cat=books" class="sidebar-link"><i class="fas fa-book"></i> Books</a>
+      <a href="products.html?cat=groceries" class="sidebar-link"><i class="fas fa-shopping-basket"></i> Groceries</a>
+      <a href="products.html?cat=toys" class="sidebar-link"><i class="fas fa-gamepad"></i> Toys & Kids</a>
+    </div>
+    <div class="slider-wrap" id="slider">
+      <div class="slides" id="slides">
+        <div class="slide slide-1">
+          <div class="slide-content">
+            <div class="slide-pill"><i class="fas fa-robot"></i> AI POWERED</div>
+            <h1>Personalized Shopping<br/><span>Just For You</span></h1>
+            <p>AI analyses your preferences to find the perfect products</p>
+            <div class="slide-btns">
+              <a href="products.html" class="btn-primary">Shop Now</a>
+              <a href="ai-features.html" class="btn-outline-w">Explore AI</a>
+            </div>
+            <div class="slide-stats">
+              <div class="sstat"><strong>1M+</strong><span>Customers</span></div>
+              <div class="sstat"><strong>50K+</strong><span>Products</span></div>
+              <div class="sstat"><strong>4.8★</strong><span>Rating</span></div>
+            </div>
+          </div>
+          <div class="slide-visual">
+            <div class="phone-card">
+              <div class="pc-top"><i class="fas fa-robot"></i> ShopAI India</div>
+              <div class="pc-product"><span class="pc-emoji">📱</span><div><div class="pc-name">Galaxy S24 Ultra</div><div class="pc-price">₹1,12,499</div><div class="pc-ai">✨ AI Pick for you</div></div></div>
+            </div>
+            <div class="float-chips">
+              <div class="fchip c1"><i class="fas fa-brain"></i></div>
+              <div class="fchip c2"><i class="fas fa-chart-line"></i></div>
+              <div class="fchip c3"><i class="fas fa-magic"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="slide slide-2">
+          <div class="slide-content">
+            <div class="slide-pill deal-pill"><i class="fas fa-fire"></i> FLASH SALE</div>
+            <h1>Festival Sale<br/><span>Up to 80% OFF</span></h1>
+            <p>AI-curated deals on electronics, fashion & more</p>
+            <div class="slide-btns">
+              <a href="deals.html" class="btn-primary">Grab Deals</a>
+              <a href="products.html" class="btn-outline-w">Shop All</a>
+            </div>
+            <div class="countdown">
+              <div class="cu"><span id="ch">08</span><label>Hrs</label></div>
+              <div class="csep">:</div>
+              <div class="cu"><span id="cm">45</span><label>Min</label></div>
+              <div class="csep">:</div>
+              <div class="cu"><span id="cs">30</span><label>Sec</label></div>
+            </div>
+          </div>
+          <div class="slide-visual">
+            <div class="deal-floats">
+              <div class="dfloat">📱 <strong>80% OFF</strong></div>
+              <div class="dfloat">👗 <strong>60% OFF</strong></div>
+              <div class="dfloat">🏠 <strong>50% OFF</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="sl-btn sl-prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+      <button class="sl-btn sl-next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+      <div class="sl-dots" id="slDots"></div>
+    </div>
+    <div class="hero-right">
+      <div class="mini-banner mb-dark" onclick="location.href='products.html?cat=fashion'">
+        <div><span class="mb-tag">NEW</span><h3>Fashion Picks</h3><p>From ₹299</p></div>
+        <span class="mb-emoji">👗</span>
+      </div>
+      <div class="mini-banner mb-orange" onclick="location.href='deals.html'">
+        <div><span class="mb-tag hot-tag">HOT</span><h3>Deal Zone</h3><p>Up to 70% OFF</p></div>
+        <span class="mb-emoji">🔥</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section"><div class="container">
+  <div class="sec-header"><h2 class="sec-title">Shop by Category</h2><a href="products.html" class="see-all">See All <i class="fas fa-arrow-right"></i></a></div>
+  <div class="cat-grid" id="catGrid"></div>
+</div></section>
+
+<!-- AI STRIP -->
+<section class="ai-strip"><div class="container"><div class="ai-strip-inner">
+  <div class="ai-strip-left">
+    <div class="ai-pulse-icon"><i class="fas fa-brain"></i></div>
+    <div><h3>AI is Learning Your Preferences</h3><p>Our ML engine analyses 50+ signals to personalise your experience</p></div>
+  </div>
+  <div class="ai-feats">
+    <div class="ai-feat"><i class="fas fa-magic"></i> Smart Reco</div>
+    <div class="ai-feat"><i class="fas fa-tag"></i> AI Deals</div>
+    <div class="ai-feat"><i class="fas fa-bell"></i> Alerts</div>
+    <div class="ai-feat"><i class="fas fa-pen-nib"></i> AI Content</div>
+  </div>
+  <a href="ai-features.html" class="btn-ai">Explore AI Features</a>
+</div></div></section>
+
+<!-- TRENDING PRODUCTS -->
+<section class="section"><div class="container">
+  <div class="sec-header">
+    <div class="sec-title-group"><span class="sec-tag trend-tag"><i class="fas fa-fire"></i> Trending</span><h2 class="sec-title">Trending Products</h2></div>
+    <div class="sec-tabs">
+      <button class="tab active" onclick="filterTrending('all',this)">All</button>
+      <button class="tab" onclick="filterTrending('electronics',this)">Electronics</button>
+      <button class="tab" onclick="filterTrending('fashion',this)">Fashion</button>
+      <button class="tab" onclick="filterTrending('beauty',this)">Beauty</button>
+    </div>
+    <a href="products.html" class="see-all">See All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="prod-grid" id="trendingGrid"></div>
+</div></section>
+
+<!-- PROMO BANNERS -->
+<section class="section"><div class="container">
+  <div class="promo-grid">
+    <div class="promo-card pc-orange"><div><span class="pc-off">50% OFF</span><h3>New User Offer</h3><p>Code: <strong>NEWUSER30</strong></p><a href="products.html" class="pc-btn">Shop Now</a></div><span class="pc-emoji">🎁</span></div>
+    <div class="promo-card pc-dark"><div><span class="pc-off">FREE</span><h3>Express Delivery</h3><p>Orders above ₹999</p><a href="products.html" class="pc-btn">Order Now</a></div><span class="pc-emoji">🚀</span></div>
+    <div class="promo-card pc-green"><div><span class="pc-off">AI</span><h3>Smart Picks</h3><p>Curated for you</p><a href="ai-features.html" class="pc-btn">Discover</a></div><span class="pc-emoji">🤖</span></div>
+  </div>
+</div></section>
+
+<!-- FEATURED -->
+<section class="section"><div class="container">
+  <div class="sec-header">
+    <div class="sec-title-group"><span class="sec-tag feat-tag"><i class="fas fa-star"></i> Featured</span><h2 class="sec-title">AI-Recommended For You</h2></div>
+    <a href="products.html" class="see-all">See All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="prod-grid" id="featuredGrid"></div>
+</div></section>
+
+<!-- DEALS -->
+<section class="section"><div class="container">
+  <div class="sec-header">
+    <div class="sec-title-group"><span class="sec-tag deal-tag"><i class="fas fa-bolt"></i> Limited Time</span><h2 class="sec-title">Deals of the Day</h2></div>
+    <div class="deal-timer">Ends in: <span id="dt-h">08</span>:<span id="dt-m">45</span>:<span id="dt-s">22</span></div>
+    <a href="deals.html" class="see-all">All Deals <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="deals-grid" id="dealsGrid"></div>
+</div></section>
+
+<!-- WHY US -->
+<section class="section"><div class="container">
+  <h2 class="sec-title center-title">Why Choose ShopAI India?</h2>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-icon wi-orange"><i class="fas fa-brain"></i></div><h3>AI Personalisation</h3><p>ML engine analyses behaviour using NLP to deliver hyper-personalised recommendations.</p></div>
+    <div class="why-card"><div class="why-icon wi-blue"><i class="fas fa-shield-alt"></i></div><h3>100% Secure</h3><p>SSL-encrypted payments — UPI, NetBanking, Credit/Debit cards, all safe.</p></div>
+    <div class="why-card"><div class="why-icon wi-green"><i class="fas fa-truck"></i></div><h3>Pan India Delivery</h3><p>Fast delivery to 25,000+ pin codes with real-time order tracking.</p></div>
+    <div class="why-card"><div class="why-icon wi-gold"><i class="fas fa-undo-alt"></i></div><h3>Easy Returns</h3><p>Hassle-free 30-day returns. Raise a request and we handle the rest.</p></div>
+    <div class="why-card"><div class="why-icon wi-purple"><i class="fas fa-headset"></i></div><h3>AI Chatbot Support</h3><p>24/7 AI-powered support that understands queries instantly.</p></div>
+    <div class="why-card"><div class="why-icon wi-red"><i class="fas fa-tag"></i></div><h3>Best Prices</h3><p>AI comparison ensures you always get the best price.</p></div>
+  </div>
+</div></section>
+
+<!-- NEWSLETTER -->
+<section class="section"><div class="container">
+  <div class="nl-card">
+    <div class="nl-left"><div class="nl-icon"><i class="fas fa-robot"></i></div><div><h3>Get AI-Personalised Deals in Your Inbox</h3><p>Our AI sends you offers based on your interests — no spam</p></div></div>
+    <form class="nl-form" onsubmit="subscribeNL(event)"><input type="email" placeholder="Enter your email address" required/><button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button></form>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer class="footer"><div class="container">
+  <div class="footer-grid">
+    <div class="footer-col brand-col">
+      <div class="footer-logo"><i class="fas fa-robot"></i><div><span class="fl-main">ShopAI</span><span class="fl-sub">INDIA</span></div></div>
+      <p class="footer-desc">India's first AI-powered e-commerce platform delivering personalised shopping experiences to millions.</p>
+      <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
+      <div class="app-btns"><a href="#" class="app-btn"><i class="fab fa-google-play"></i> Google Play</a><a href="#" class="app-btn"><i class="fab fa-apple"></i> App Store</a></div>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="products.html">All Products</a></li><li><a href="deals.html">Today's Deals</a></li><li><a href="ai-features.html">AI Features</a></li><li><a href="login.html">Login / Register</a></li></ul></div>
+    <div class="footer-col"><h4>Customer Help</h4><ul><li><a href="#">Track Order</a></li><li><a href="#">Returns & Refunds</a></li><li><a href="#">Payment Methods</a></li><li><a href="#">FAQ</a></li><li><a href="#">Seller Portal</a></li></ul></div>
+    <div class="footer-col"><h4>AI & Technology</h4><ul><li><a href="ai-features.html">AI Personalisation</a></li><li><a href="#">Smart Recommendations</a></li><li><a href="#">AI Chatbot</a></li><li><a href="#">Content Generation</a></li><li><a href="#">NLP Search</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><div class="footer-contact"><div class="fc-item"><i class="fas fa-map-marker-alt"></i> Bengaluru, Karnataka, India</div><div class="fc-item"><i class="fas fa-phone"></i> +91 98765 43210</div><div class="fc-item"><i class="fas fa-envelope"></i> support@shopai.in</div><div class="fc-item"><i class="fas fa-clock"></i> 24/7 AI Support</div></div><div class="pay-icons"><span>UPI</span><span>GPay</span><span>PayTM</span><span>VISA</span><span>MC</span><span>COD</span></div></div>
+  </div>
+  <div class="footer-bottom"><p>© 2024 ShopAI India. All Rights Reserved. | Java Spring Boot + MySQL + AI Content Generation</p><div class="fb-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div></div>
+</div></footer>
+
+<!-- CHATBOT -->
+<div class="chatbot" id="chatbot">
+  <div class="cb-head"><div class="cb-avatar"><i class="fas fa-robot"></i></div><div class="cb-title"><h4>ShopAI Assistant</h4><span class="cb-online"></span><span>Online – AI Powered</span></div><div style="display:flex;gap:6px"><button class="cb-close" onclick="clearChat()" title="Clear chat" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);font-size:14px"><i class="fas fa-trash-alt"></i></button><button class="cb-close" onclick="toggleChatbot()"><i class="fas fa-times"></i></button></div></div>
+  <div class="cb-msgs" id="cbMsgs"></div>
+  <div class="cb-quick"><button onclick="quickChat('Show trending products')">🔥 Trending</button><button onclick="quickChat('Best deals today')">💰 Deals</button><button onclick="quickChat('Electronics under 10000')">📱 Electronics</button><button onclick="quickChat('Beauty products')">✨ Beauty</button></div>
+  <div class="cb-input"><input type="text" id="cbInput" placeholder="Search products, ask for help…" onkeypress="cbKeyPress(event)"/><button onclick="sendChat()"><i class="fas fa-paper-plane"></i></button></div>
+</div>
+<button class="cb-trigger" onclick="toggleChatbot()"><i class="fas fa-robot"></i><span class="cb-badge">AI</span></button>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartDrawer()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cd-head"><h3><i class="fas fa-shopping-cart"></i> My Cart (<span id="cdCount">0</span>)</h3><button onclick="closeCartDrawer()"><i class="fas fa-times"></i></button></div>
+  <div class="cd-items" id="cdItems"><div class="cd-empty"><i class="fas fa-shopping-cart"></i><p>Your cart is empty</p></div></div>
+  <div class="cd-footer"><div class="cd-total">Total: <strong id="cdTotal">₹0</strong></div><a href="cart.html" class="btn-checkout">Proceed to Checkout</a></div>
+</div>
+
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

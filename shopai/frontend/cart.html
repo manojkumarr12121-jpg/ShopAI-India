@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Cart – ShopAI India</title>
+  <link rel="stylesheet" href="css/style.css"/><link rel="stylesheet" href="css/pages.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+<div class="announce-bar"><div class="announce-inner"><span><i class="fas fa-truck"></i> Free Delivery ₹499+</span><span class="sep">|</span><span><i class="fas fa-shield-alt"></i> 100% Secure Checkout</span></div></div>
+<header class="header">
+  <div class="header-top"><div class="container"><div class="header-row">
+    <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-robot"></i></div><div class="logo-words"><span class="logo-main">ShopAI</span><span class="logo-sub">INDIA</span></div></a>
+    <div style="flex:1"></div>
+    <div class="header-actions">
+      <a href="index.html" class="haction"><i class="fas fa-home hicon"></i><div class="haction-text"><span class="haction-main">Home</span></div></a>
+      <a href="products.html" class="haction"><i class="fas fa-search hicon"></i><div class="haction-text"><span class="haction-main">Shop</span></div></a>
+      <a href="wishlist.html" class="haction"><div style="position:relative"><i class="fas fa-heart hicon"></i><span class="hbadge" id="wishCount">0</span></div></a>
+    </div>
+  </div></div></div>
+</header>
+
+<main style="padding:24px 0;background:#f5f5f5;min-height:80vh">
+  <div class="container">
+    <div style="font-size:13px;color:#999;margin-bottom:16px"><a href="index.html" style="color:var(--primary)">Home</a> › My Cart</div>
+    <h1 style="font-size:24px;font-weight:800;margin-bottom:20px;color:var(--secondary)"><i class="fas fa-shopping-cart" style="color:var(--primary)"></i> My Shopping Cart</h1>
+    <div class="cart-page-layout">
+      <div>
+        <div class="ai-save-banner"><i class="fas fa-robot"></i><div><strong>AI Savings Alert</strong> — Apply code <strong style="color:var(--gold)">AISHIP50</strong> for 50% OFF!</div></div>
+        <div id="cartItemsWrap"></div>
+        <a href="products.html" class="continue-shop"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+      </div>
+      <div class="cart-summary-box">
+        <h3>Order Summary</h3>
+        <div class="summ-row"><span>Subtotal</span><span id="summSubtotal">₹0</span></div>
+        <div class="summ-row"><span>Shipping</span><span id="summShipping" style="color:var(--success)">FREE</span></div>
+        <div class="summ-row"><span>GST (18%)</span><span>Included</span></div>
+        <div class="summ-total"><span>Total</span><span id="summTotal">₹0</span></div>
+        <div style="margin:16px 0 0;padding-top:16px;border-top:1px solid var(--gray-200)">
+          <div style="font-size:13px;font-weight:700;margin-bottom:8px">Promo Code</div>
+          <div class="promo-wrap"><input type="text" id="promoInput" placeholder="Enter code" style="text-transform:uppercase"/><button onclick="applyPromo()">Apply</button></div>
+          <div id="promoMsg"></div>
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:12px">Try: AISHIP50 | INDIA200 | NEWUSER30</div>
+        </div>
+        <a href="checkout.html" class="btn-checkout"><i class="fas fa-lock"></i> Proceed to Checkout</a>
+        <div class="cart-perks">
+          <div class="cart-perk"><i class="fas fa-shield-alt"></i> 100% secure checkout</div>
+          <div class="cart-perk"><i class="fas fa-truck"></i> Free delivery above ₹499</div>
+          <div class="cart-perk"><i class="fas fa-undo"></i> 30-day easy returns</div>
+          <div class="cart-perk"><i class="fas fa-credit-card"></i> EMI available on ₹3000+</div>
+        </div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--gray-200)">
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:8px">ACCEPTED PAYMENTS</div>
+          <div class="pay-icons"><span>UPI</span><span>GPay</span><span>PayTM</span><span>PhonePe</span><span>VISA</span><span>MC</span><span>COD</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:32px">
+      <div class="sec-header">
+        <div class="sec-title-group"><span class="sec-tag feat-tag"><i class="fas fa-magic"></i> AI Picks</span><h2 class="sec-title">You Might Also Like</h2></div>
+        <a href="products.html" class="see-all">See All <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="prod-grid" id="cartReco"></div>
+    </div>
+  </div>
+</main>
+
+<div class="chatbot" id="chatbot">
+  <div class="cb-head"><div class="cb-avatar"><i class="fas fa-robot"></i></div><div class="cb-title"><h4>ShopAI Assistant</h4><span class="cb-online"></span><span>Online</span></div><div style="display:flex;gap:6px"><button class="cb-close" onclick="clearChat()" title="Clear" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);font-size:14px"><i class="fas fa-trash-alt"></i></button><button class="cb-close" onclick="toggleChatbot()"><i class="fas fa-times"></i></button></div></div>
+  <div class="cb-msgs" id="cbMsgs"></div></div></div>
+  <div class="cb-input"><input type="text" id="cbInput" placeholder="Ask about deals…" onkeypress="cbKeyPress(event)"/><button onclick="sendChat()"><i class="fas fa-paper-plane"></i></button></div>
+</div>
+<button class="cb-trigger" onclick="toggleChatbot()"><i class="fas fa-robot"></i><span class="cb-badge">AI</span></button>
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<script src="js/data.js"></script><script src="js/app.js"></script><script src="js/chatbot.js"></script>
+<script>
+function renderFullCart(){
+  const cart=JSON.parse(localStorage.getItem('shopai_cart')||'[]');
+  const wrap=document.getElementById('cartItemsWrap');
+  if(!wrap) return;
+  if(cart.length===0){
+    wrap.innerHTML='<div style="text-align:center;padding:60px 20px;color:#999"><i class="fas fa-shopping-cart" style="font-size:56px;color:#ddd;display:block;margin-bottom:16px"></i><h2 style="color:#555">Your Cart is Empty</h2><p style="margin-bottom:20px">Add items to start shopping</p><a href="products.html" style="background:var(--primary);color:white;padding:12px 28px;border-radius:25px;font-weight:700;text-decoration:none">Continue Shopping</a></div>';
+    return;
+  }
+  wrap.innerHTML=cart.map(item=>`
+    <div class="fci" id="fci_${item.id}">
+      <img src="${item.img}" alt="${item.name}" class="fci-img" onerror="this.src='https://via.placeholder.com/80'"/>
+      <div class="fci-info"><div class="fci-name">${item.name}</div><div class="fci-brand">${item.brand}</div><div class="fci-price">₹${fmt(item.finalPrice)}</div></div>
+      <div class="fci-qty"><button onclick="changeQty(${item.id},-1)">−</button><span>${item.qty}</span><button onclick="changeQty(${item.id},1)">+</button></div>
+      <div class="fci-total">₹${fmt(item.finalPrice*item.qty)}</div>
+      <button class="fci-remove" onclick="removeItem(${item.id})"><i class="fas fa-trash-alt"></i></button>
+    </div>`).join('');
+  const sub=cart.reduce((s,i)=>s+i.finalPrice*i.qty,0);
+  const ship=sub>=499?0:49;
+  document.getElementById('summSubtotal').textContent='₹'+fmt(sub);
+  document.getElementById('summShipping').textContent=ship===0?'FREE':'₹'+ship;
+  document.getElementById('summTotal').textContent='₹'+fmt(sub+ship);
+}
+function fmt(n){return new Intl.NumberFormat('en-IN').format(Math.round(n));}
+function changeQty(id,d){
+  let cart=JSON.parse(localStorage.getItem('shopai_cart')||'[]');
+  const item=cart.find(i=>i.id===id);
+  if(item){item.qty=Math.max(1,item.qty+d);}
+  localStorage.setItem('shopai_cart',JSON.stringify(cart));
+  renderFullCart(); updateCartUI();
+}
+function removeItem(id){
+  let cart=JSON.parse(localStorage.getItem('shopai_cart')||'[]');
+  cart=cart.filter(i=>i.id!==id);
+  localStorage.setItem('shopai_cart',JSON.stringify(cart));
+  renderFullCart(); updateCartUI(); showToast('Item removed');
+}
+function applyPromo(){
+  const code=document.getElementById('promoInput').value.trim().toUpperCase();
+  const promos={AISHIP50:{type:'percent',v:50},INDIA200:{type:'flat',v:200},NEWUSER30:{type:'percent',v:30}};
+  const msg=document.getElementById('promoMsg');
+  if(promos[code]){
+    const p=promos[code];
+    msg.textContent=`"${code}" applied! ${p.type==='percent'?p.v+'%':'₹'+p.v} discount added.`;
+    msg.style.color='var(--success)';
+    showToast('✅ Promo code applied!');
+  } else {
+    msg.textContent='Invalid promo code. Try AISHIP50'; msg.style.color='var(--danger)';
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  renderFullCart(); updateCartUI(); updateWishlistUI();
+  if(typeof PRODUCTS!=='undefined'){
+    const cart=JSON.parse(localStorage.getItem('shopai_cart')||'[]').map(i=>i.id);
+    const reco=PRODUCTS.filter(p=>!cart.includes(p.id)&&p.trending).slice(0,4);
+    renderGrid(reco,'cartReco');
+  }
+});
+</script>
+</body>
+</html>
